@@ -74,3 +74,9 @@ export const included = [
   "Real case studies traced to the need beneath each conflict",
   "Group discussion and storytelling with Dr. Joshi",
 ] as const;
+
+export const navLinks = [
+  { href: "#method", label: "How we study" },
+  { href: "#see-her", label: "Try the exercise" },
+  { href: "#join", label: "Membership" },
+] as const;

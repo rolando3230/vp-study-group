@@ -2,7 +2,8 @@ import Image from "next/image";
 import DancerMedia from "@/components/DancerMedia";
 import PerceptionExplorer from "@/components/PerceptionExplorer";
 import { Icon, Lotus } from "@/components/Icons";
-import { JOIN_URL, details, included, methods } from "@/lib/content";
+import SiteHeader from "@/components/SiteHeader";
+import { JOIN_URL, details, included, methods, navLinks } from "@/lib/content";
 
 function JoinButton({
   children = "Join the study group",
@@ -33,39 +34,17 @@ const container = "mx-auto w-full max-w-6xl px-5 sm:px-8";
 export default function Home() {
   return (
     <>
-      {/* Nav */}
-      <header className="sticky top-0 z-30 border-b border-petal bg-white/90 backdrop-blur">
-        <div className={`${container} flex h-[72px] items-center justify-between`}>
-          <a href="#top" aria-label="Vedic Psychology Institute, back to top">
-            <Image
-              src="/media/logo.webp"
-              alt="Vedic Psychology Institute"
-              width={740}
-              height={500}
-              priority
-              className="h-12 w-auto"
-            />
-          </a>
-          <nav className="flex items-center gap-6 text-sm text-ink-soft">
-            <a href="#method" className="hidden hover:text-berry sm:inline">
-              How we study
-            </a>
-            <a href="#see-her" className="hidden hover:text-berry sm:inline">
-              How do you see her?
-            </a>
-            <a
-              href={JOIN_URL}
-              className="rounded-full bg-berry px-4 py-2 font-semibold text-white transition-colors hover:bg-berry-dark"
-            >
-              Join
-            </a>
-          </nav>
-        </div>
-      </header>
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-full bg-berry px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to content
+      </a>
+      <SiteHeader />
 
-      <main id="top">
+      <main id="main">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-ink text-blush">
+        <section id="top" className="relative overflow-hidden bg-ink text-blush">
           <Lotus className="pointer-events-none absolute -right-40 top-1/2 w-[46rem] max-w-none -translate-y-1/2 text-lotus opacity-35 md:-right-24 md:opacity-70" />
           <div
             aria-hidden
@@ -129,7 +108,7 @@ export default function Home() {
         {/* Intro */}
         <section className="bg-paper">
           <div className={`${container} grid gap-10 py-24 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16`}>
-            <h2 className="font-display text-4xl leading-tight sm:text-5xl">
+            <h2 className="reveal font-display text-4xl leading-tight sm:text-5xl">
               Behind every reaction is a longing to be <em className="text-berry">understood.</em>
             </h2>
             <div className="grid content-start gap-5 text-lg leading-relaxed text-ink-soft">
@@ -152,7 +131,7 @@ export default function Home() {
         {/* Method */}
         <section id="method" className="scroll-mt-16 bg-blush">
           <div className={`${container} grid gap-12 py-24`}>
-            <div className="grid max-w-2xl gap-3">
+            <div className="reveal grid max-w-2xl gap-3">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-berry">
                 How we study together
               </p>
@@ -162,7 +141,7 @@ export default function Home() {
               {methods.map((m) => (
                 <article
                   key={m.title}
-                  className="grid content-start gap-4 rounded-3xl bg-white p-8 transition-shadow hover:shadow-xl hover:shadow-berry/10"
+                  className="reveal grid content-start gap-4 rounded-3xl bg-white p-8 transition-[box-shadow,translate] duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-berry/10"
                 >
                   <span className="grid size-12 place-items-center rounded-2xl bg-blush text-berry">
                     <Icon name={m.icon} className="size-6" />
@@ -185,7 +164,7 @@ export default function Home() {
               height={155}
               className="mx-auto mb-8 h-10 w-auto"
             />
-            <blockquote className="mx-auto max-w-4xl font-display text-3xl leading-snug sm:text-5xl">
+            <blockquote className="reveal mx-auto max-w-4xl font-display text-3xl leading-snug sm:text-5xl">
               When how you see things changes,{" "}
               <em className="text-berry">then how you behave changes.</em>
             </blockquote>
@@ -195,7 +174,7 @@ export default function Home() {
         {/* How do you see her */}
         <section id="see-her" className="scroll-mt-16 border-y border-petal bg-white">
           <div className={`${container} grid gap-12 py-24`}>
-            <div className="grid max-w-2xl gap-4">
+            <div className="reveal grid max-w-2xl gap-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-berry">
                 A short exercise
               </p>
@@ -289,16 +268,40 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-white text-ink-soft">
-        <div className={`${container} flex flex-wrap items-center justify-between gap-4 py-8 text-sm`}>
-          <Image
-            src="/media/logo.webp"
-            alt="Vedic Psychology Institute"
-            width={740}
-            height={500}
-            className="h-14 w-auto"
-          />
-          <p>© {new Date().getFullYear()} Vedic Psychology Institute</p>
+      <footer className="border-t border-petal bg-white text-ink-soft">
+        <div className={`${container} grid gap-10 py-12 md:grid-cols-[auto_1fr_auto] md:items-start`}>
+          <a href="#top" aria-label="Vedic Psychology Institute, back to top">
+            <Image
+              src="/media/logo.webp"
+              alt="Vedic Psychology Institute"
+              width={370}
+              height={250}
+              className="h-20 w-auto"
+            />
+          </a>
+          <nav aria-label="Footer" className="md:justify-self-center">
+            <ul className="grid gap-3 text-[0.95rem] sm:grid-flow-col sm:gap-8">
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="font-medium text-ink transition-colors hover:text-berry">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="grid gap-1 text-sm md:text-right">
+            <p className="font-semibold text-ink">Every Saturday, 8:30–9:30 am EST</p>
+            <p>Online with Dr. Joshi · Recordings included</p>
+            <a href={JOIN_URL} className="mt-2 font-semibold text-berry hover:text-berry-dark">
+              Join the study group →
+            </a>
+          </div>
+        </div>
+        <div className="border-t border-petal">
+          <p className={`${container} py-5 text-sm`}>
+            © {new Date().getFullYear()} Vedic Psychology Institute
+          </p>
         </div>
       </footer>
     </>
